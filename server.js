@@ -7,7 +7,7 @@ const puerto = 3000;
 
 app.use(bodyParser.json);
 
-app.use(`/api`, usuarioRutas);
+app.use('/api', usuarioRutas);
 
 app.listen(puerto, () => {
     console.log(`servidor corriendo en hhtp://localhost:${puerto}`);
