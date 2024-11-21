@@ -1,0 +1,21 @@
+{
+  "name": "projecto-gym-api",
+  "version": "1.0.0",
+  "description": "con respecto a la estructura quiero saber com deberia haer para conectar la la base de datos a la api siendo n projecto locaol donde el base de dato esta en la pc local no en la nube y loque quiero entende es com debo manejar esa rutas paraque cuando reciba los datos (cliente)esta pueda realizar bien el crud",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.1",
+    "mysql2": "^3.11.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
