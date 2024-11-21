@@ -2,7 +2,7 @@
 import usuario from '../modelos/usuarioModelo.js';
 
 // Crear un nuevo usuario
-export const crearUsuario = async (req, res) => {
+export const crearUsuario = async (req, res) => {// revisarsar que es send en chatgtp
   const { nombre, apellido, dni, mail, telefono } = req.body;
   try {
     await usuario.create({ nombre, apellido, dni, mail, telefono });
