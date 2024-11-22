@@ -57,7 +57,7 @@ const crearUsuario = async (req, res) => {
  * @param {Object} res recibe el usuario los datos devuelto por el servidor
  */
 const actualizarUsuario = async (req, res) => {
-    const { dni} = req.params;
+    const { dni } = req.params;
     const { nombre, apellido, mail, telefono
     } = req.body;
     try {
@@ -77,7 +77,7 @@ const actualizarUsuario = async (req, res) => {
 
 // Controlador para eliminar un usuario
 /**
- * 
+ * elimina un usuario de la tabla registro cliente
  * @param {Object} req los datos ingresado por el usuario
  * @param {Object} res recibe el usuario los datos devuelto por el servidor
  */
