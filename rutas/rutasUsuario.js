@@ -1,15 +1,10 @@
 import express from 'express';
-import { 
-  crearUsuario, 
-  obtenerUsuarios, 
-  obtenerUsuarioPorId, 
-  actualizarUsuario, 
-  eliminarUsuario 
-} from '../controladores/usuarioControl.js';
+import controlRutas
+  from '../controladores/controladorUsuario.js';
 const rutas = express.Router();
-rutas.post('/usuarios', crearUsuario);              
-rutas.get('/usuarios', obtenerUsuarios);             
-rutas.get('/usuarios/:id', obtenerUsuarioPorId);    
-rutas.put('/usuarios/:id', actualizarUsuario);      
-rutas.delete('/usuarios/:id', eliminarUsuario);    
+rutas.post('/usuarios',controlRutas.crearUsuario);
+rutas.get('/usuarios', controlRutas.obtenerUsuario);
+rutas.get('/usuarios/:id',controlRutas.obtenerUsuarioPorId  );
+rutas.put('/usuarios/:id',controlRutas.actualizarUsuario );
+rutas.delete('/usuarios/:id', controlRutas.eliminarUsuario);
 export default rutas;
