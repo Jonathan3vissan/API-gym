@@ -12,5 +12,4 @@ rutas.get('/usuarios', obtenerUsuarios);
 rutas.get('/usuarios/:id', obtenerUsuarioPorId);    
 rutas.put('/usuarios/:id', actualizarUsuario);      
 rutas.delete('/usuarios/:id', eliminarUsuario);    
-
 export default rutas;
