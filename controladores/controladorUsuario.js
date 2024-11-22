@@ -1,21 +1,28 @@
-import pool from '../config/database.js';
-
-// Controlador para obtener todos los usuarios
+import pool from '../configuracion/configuracionDB.js';
+/**
+ * obtiene la tabla regsitro_cliente
+ * @param {Object} req los datos ingresados por el usuario
+ * @param {Objeto} res recibe el usuario los datos devuelto por el servidor
+ */
 const obtenerUsuario = async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM registro_liente');
+        const [rows] = await pool.query('SELECT * FROM registro_cliente');
         res.json(rows);
     } catch (error) {
         console.error(error);
         res.status(500).send('Error al obtener los usuarios');
     }
 };
-
-// Controlador para obtener un usuario específico
+/**
+ * obtiene un usuario en especifoc indetificado por el dni
+ * @param {Object} req los datos ingresado por el usuario
+ * @param {Object} res recibe el usuario los datos devuelto por el servidor
+ * @returns 
+ */
 const obtenerUsuarioPorId = async (req, res) => {
-    const { id } = req.params;
+    const { dni } = req.params;
     try {
-        const [rows] = await pool.query('SELECT * FROM registro_liente WHERE id = ?', [id]);
+        const [rows] = await pool.query('SELECT * FROM registro_liente WHERE dni = ?', [dni]);
         if (rows.length === 0) {
             return res.status(404).send('Usuario no encontrado');
         }
@@ -25,29 +32,43 @@ const obtenerUsuarioPorId = async (req, res) => {
         res.status(500).send('Error al obtener el usuario');
     }
 };
-
-// Controlador para crear un usuario
+/**
+ * crea un usuario
+ * @param {Object} req los datos ingresado por el usuario
+ * @param {Object} res recibe el usuario los datos devuelto por el servidor
+ */
 const crearUsuario = async (req, res) => {
-    const { name, email } = req.body;
+    const { nombre, apellido, dni, mail, telefono
+    } = req.body;
     try {
-        const [result] = await pool.query('INSERT INTO registro_liente (name, email) VALUES (?, ?)', [name, email]);
-        res.status(201).json({ id: result.insertId, name, email });
+        const [result] = await pool.query('INSERT INTO registro_liente (nombre,apellido ,dni, mail, telefono) VALUES (?,?,?,?,?)', [nombre, apellido, dni, mail, telefono
+        ]);
+        res.status(201).json({
+            id: result.insertId, nombre, apellido, dni, mail, telefono
+        });
     } catch (error) {
         console.error(error);
         res.status(500).send('Error al crear el usuario');
     }
 };
-
-// Controlador para actualizar un usuario
+/**
+ * actualiza un usuario
+ * @param {Object} req los datos ingresado por el usuario
+ * @param {Object} res recibe el usuario los datos devuelto por el servidor
+ */
 const actualizarUsuario = async (req, res) => {
-    const { id } = req.params;
-    const { name, email } = req.body;
+    const { dni} = req.params;
+    const { nombre, apellido, mail, telefono
+    } = req.body;
     try {
-        const [result] = await pool.query('UPDATE registro_liente SET name = ?, email = ? WHERE id = ?', [name, email, id]);
+        const [result] = await pool.query('UPDATE registro_liente SET name = ?, apellido = ?, email = ? WHERE dni = ?', [nombre, apellido, mail, telefono
+        ]);
         if (result.affectedRows === 0) {
             return res.status(404).send('Usuario no encontrado');
         }
-        res.json({ message: 'Usuario actualizado exitosamente', id, name, email });
+        res.json({
+            message: 'Usuario actualizado exitosamente', id, nombre, apellido, dni, mail, telefono
+        });
     } catch (error) {
         console.error(error);
         res.status(500).send('Error al actualizar el usuario');
@@ -55,10 +76,15 @@ const actualizarUsuario = async (req, res) => {
 };
 
 // Controlador para eliminar un usuario
+/**
+ * 
+ * @param {Object} req los datos ingresado por el usuario
+ * @param {Object} res recibe el usuario los datos devuelto por el servidor
+ */
 const eliminarUsuario = async (req, res) => {
-    const { id } = req.params;
+    const { dni } = req.params;
     try {
-        const [result] = await pool.query('DELETE FROM registro_liente WHERE id = ?', [id]);
+        const [result] = await pool.query('DELETE FROM registro_liente WHERE dni = ?', [dni]);
         if (result.affectedRows === 0) {
             return res.status(404).send('Usuario no encontrado');
         }
