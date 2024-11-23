@@ -20,9 +20,9 @@ const obtenerUsuario = async (req, res) => {
  * @returns 
  */
 const obtenerUsuarioPorId = async (req, res) => {
-    const { dni } = req.params;
+    const { id } = req.params;
     try {
-        const [rows] = await pool.query('SELECT * FROM registro_cliente WHERE dni = ?', [dni]);
+        const [rows] = await pool.query('SELECT * FROM registro_cliente WHERE id = ?', [id]);
         if (rows.length === 0) {
             return res.status(404).send('Usuario no encontrado');
         }
@@ -41,13 +41,14 @@ const crearUsuario = async (req, res) => {
     const { nombre, apellido, dni, mail, telefono
     } = req.body;
     try {
-        const [result] = await pool.query('INSERT INTO registro_cliente (nombre,apellido ,dni, mail, telefono) VALUES (?,?,?,?,?)', [nombre, apellido, dni, mail, telefono
+        console.log('Datos a insertar:', nombre, apellido, dni, mail, telefono);
+        const [result] = await pool.query('INSERT INTO registro_cliente (Nombre, Apellido ,DNI , Mail, Telefono) VALUES (?,?,?,?,?)', [nombre, apellido, dni, mail, telefono
         ]);
         res.status(201).json({
             id: result.insertId, nombre, apellido, dni, mail, telefono
         });
     } catch (error) {
-        console.error(error);
+        console.error("ocurrio error:", error);
         res.status(500).send('Error al crear el usuario');
     }
 };
@@ -57,11 +58,11 @@ const crearUsuario = async (req, res) => {
  * @param {Object} res recibe el usuario los datos devuelto por el servidor
  */
 const actualizarUsuario = async (req, res) => {
-    const { dni } = req.params;
-    const { nombre, apellido, mail, telefono
+    const { id } = req.params;
+    const { nombre, dni, apellido, mail, telefono
     } = req.body;
     try {
-        const [result] = await pool.query('UPDATE registro_cliente SET nombre = ?, apellido = ?, email = ? WHERE dni = ?', [nombre, apellido, mail, telefono
+        const [result] = await pool.query('UPDATE registro_cliente SET nombre = ?, dni = ?, apellido = ?, mail = ?, telefono = ? WHERE id = ?', [nombre, dni, apellido, mail, telefono,id
         ]);
         if (result.affectedRows === 0) {
             return res.status(404).send('Usuario no encontrado');
@@ -82,9 +83,9 @@ const actualizarUsuario = async (req, res) => {
  * @param {Object} res recibe el usuario los datos devuelto por el servidor
  */
 const eliminarUsuario = async (req, res) => {
-    const { dni } = req.params;
+    const { id } = req.params;
     try {
-        const [result] = await pool.query('DELETE FROM registro_cliente WHERE dni = ?', [dni]);
+        const [result] = await pool.query('DELETE FROM registro_cliente WHERE id = ?', [id]);
         if (result.affectedRows === 0) {
             return res.status(404).send('Usuario no encontrado');
         }
