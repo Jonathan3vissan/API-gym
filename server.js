@@ -1,15 +1,18 @@
+// server.js
+
 import express, { json } from 'express';
-import usaRutas from './rutas/rutasUsuario.js';
-import cors from 'cors'; // Importar CORS
+import cors from 'cors'; // Para permitir solicitudes desde otros dominios
+import usaRutas from './rutas/rutasUsuario.js'; // Importar las rutas de usuario
 
 const server = express();
 
-// Habilitar CORS para todas las solicitudes
+// Habilitar CORS
 server.use(cors());
-// Middleware para manejar JSON
+
+// Middleware para parsear cuerpos JSON
 server.use(json());
 
-// Rutas
+// Usar las rutas
 server.use('/api', usaRutas);
 
 export default server;
