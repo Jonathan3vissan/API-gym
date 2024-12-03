@@ -6,11 +6,11 @@ import pool from '../configuracion/configuracionDB.js';
  */
 const obtenerUsuario = async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM registro_cliente');
+        const rows = await pool.query('SELECT * FROM registro_cliente');
         res.json(rows);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error al obtener los usuarios');
+        res.status(500).send('Error al obtener los usuarios en funcion del controladorlinea  13');
     }
 };
 /**
@@ -42,14 +42,14 @@ const crearUsuario = async (req, res) => {
     } = req.body;
     try {
         console.log('Datos a insertar:', nombre, apellido, dni, mail, telefono);
-        const [result] = await pool.query('INSERT INTO registro_cliente (Nombre, Apellido ,DNI , Mail, Telefono) VALUES (?,?,?,?,?)', [nombre, apellido, dni, mail, telefono
+        const result = await pool.query('INSERT INTO registro_cliente (Nombre, Apellido ,DNI , Mail, Telefono) VALUES (?,?,?,?,?)', [nombre, apellido, dni, mail, telefono
         ]);
         res.status(201).json({
             id: result.insertId, nombre, apellido, dni, mail, telefono
         });
     } catch (error) {
         console.error("ocurrio error:", error);
-        res.status(500).send('Error al crear el usuario');
+        res.status(500).send('Error al crear el usuario estamos en el archivo controlador');
     }
 };
 /**
