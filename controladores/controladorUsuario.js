@@ -7,7 +7,7 @@ import pool from '../configuracion/configuracionDB.js';
 const obtenerUsuario = async (req, res) => {
     try {
         const rows = await pool.query('SELECT * FROM registro_cliente');
-        res.json(rows);
+        res.json(rows[0]);
     } catch (error) {
         console.error(error);
         res.status(500).send('Error al obtener los usuarios en funcion del controladorlinea  13');
