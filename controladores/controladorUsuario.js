@@ -14,7 +14,7 @@ const obtenerUsuario = async (req, res) => {
     }
 };
 /**
- * obtiene un usuario en especifoc indetificado por el dni
+ * obtiene un usuario en especifoc indetificado por el id
  * @param {Object} req los datos enviados por el usuario
  * @param {Object} res recibe el usuario los datos devuelto por el servidor
  * @returns 
@@ -96,11 +96,33 @@ const eliminarUsuario = async (req, res) => {
     }
 };
 
+
+/**
+ * obtiene un usuario en especifoc indetificado por el dni
+ * @param {Object} req los datos enviados por el usuario
+ * @param {Object} res recibe el usuario los datos devuelto por el servidor
+ * @returns 
+ */
+const obtenerUsuarioPorDNI = async (req, res) => {
+    const  {dni }  = req.params;
+    try {
+        console.log("dni :",dni, "tipo de datos:",typeof dni);
+        const [rows] = await pool.query('SELECT * FROM registro_cliente WHERE Dni = ?', [dni]);
+        if (rows.length === 0) {
+            return res.status(404).send('Usuario no encontrado');
+        }
+        res.json(rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al obtener el usuario');
+    }
+};
 export default {
     obtenerUsuario,
     obtenerUsuarioPorId,
     crearUsuario,
     eliminarUsuario,
-    actualizarUsuario
+    actualizarUsuario,
+    obtenerUsuarioPorDNI
 
 };
